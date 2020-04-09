@@ -2,6 +2,7 @@
 //#define STARTUP_AUTO
 
 using System;
+using System.Globalization;
 using Shiny;
 using Shiny.Logging;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,8 @@ using Samples.ShinyDelegates;
 using Samples.ShinySetup;
 using Shiny.Infrastructure;
 using Acr.UserDialogs.Forms;
+using Samples.Localization;
+using Shiny.Localization;
 using Shiny.Notifications;
 
 #if STARTUP_ATTRIBUTES
@@ -112,6 +115,8 @@ namespace Samples.ShinySetup
             //    "Endpoint=sb://shinysamples.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=jI6ss5WOD//xPNuHFJmS7sWWzqndYQyz7wAVOMTZoLE=",
             //    "shinysamples"
             //);
+
+            services.UseLocalization(defaultCulture: CultureInfo.CreateSpecificCulture("EN")).AddTextProvider<ResxTextProvider<TextResources>>();
         }
     }
 }

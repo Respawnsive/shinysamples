@@ -48,6 +48,7 @@
                         <TextCell Text="Access" Command="{Binding Navigate}" CommandParameter="Nav/Access" />
                         <TextCell Text="Environment" Command="{Binding Navigate}" CommandParameter="Nav/Environment" />
                         <TextCell Text="Settings" Command="{Binding Navigate}" CommandParameter="Nav/Settings" />
+                        <TextCell Text="Localization" Command="{Binding Navigate}" CommandParameter="Nav/Localization" />
                     </TableSection>
                 </TableRoot>
             </TableView>
