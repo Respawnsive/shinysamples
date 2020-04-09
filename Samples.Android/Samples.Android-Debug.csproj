@@ -38,8 +38,6 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <MandroidI18n />
     <AndroidLinkMode>None</AndroidLinkMode>
-    <BundleAssemblies>false</BundleAssemblies>
-    <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -68,14 +66,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.530" />
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0" />
     <PackageReference Include="Xamarin.Firebase.Common" Version="71.1610.0" />
     <PackageReference Include="Xamarin.Firebase.Messaging" Version="71.1740.0" />
     <PackageReference Include="Xamarin.GooglePlayServices.Base" Version="71.1610.0" />
     <PackageReference Include="Xamarin.GooglePlayServices.Basement" Version="71.1620.0" />
     <PackageReference Include="Xamarin.GooglePlayServices.Tasks" Version="71.1601.0" />
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.1" />
+    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
