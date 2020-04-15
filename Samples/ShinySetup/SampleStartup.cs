@@ -116,7 +116,8 @@ namespace Samples.ShinySetup
             //    "shinysamples"
             //);
 
-            services.UseLocalization(defaultCulture: CultureInfo.CreateSpecificCulture("EN")).AddTextProvider<ResxTextProvider<TextResources>>();
+            services.UseLocalization<ResxTextProvider<TextResources>>(optionsBuilder =>
+                optionsBuilder.UseInitializationCulture(CultureInfo.CreateSpecificCulture("EN")));
         }
     }
 }
