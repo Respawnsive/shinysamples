@@ -30,18 +30,18 @@ namespace Samples.Localization
                 .SubscribeAsync(culture => this.localizationManager.InitializeAsync(culture))
                 .DisposedBy(this.DestroyWith);
 
-            this.localizationManager.OnStateChanged
-                .SubOnMainThread(OnStateChanged)
+            this.localizationManager.WhenLocalizationStatusChanged()  
+                .SubOnMainThread(LocalizationStatusChanged)
                 .DisposeWith(this.DestroyWith);
         }
 
-        private void OnStateChanged(LocalizationState state)
+        private void LocalizationStatusChanged(LocalizationState state)
         {
             if(state > LocalizationState.Initializing)
                 this.RaisePropertyChanged("Item");
         }
 
-        public string this[string name] => this.localizationManager.GetText(name);
+        public string this[string key] => this.localizationManager.GetText(key);
 
         public IList<CultureInfo> Cultures { get; }
 
