@@ -41,6 +41,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="Localization\Other\OtherTextResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>OtherTextResources.resx</DependentUpon>
+      </Compile>
       <Compile Update="Localization\TextResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -51,6 +56,10 @@
     <ItemGroup>
       <EmbeddedResource Update="Localization\LocalizationPage.xaml">
         <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Localization\Other\OtherTextResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>OtherTextResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="Localization\TextResources.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>

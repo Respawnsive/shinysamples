@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Disposables;
@@ -18,13 +19,8 @@ namespace Samples.Localization
         public LocalizationViewModel(ILocalizationManager localizationManager)
         {
             this.localizationManager = localizationManager;
-            Cultures = new List<CultureInfo>
-            {
-                CultureInfo.CreateSpecificCulture("EN"),
-                CultureInfo.CreateSpecificCulture("FR"),
-                CultureInfo.CreateSpecificCulture("ES")
-            };
-            SelectedCulture = Cultures.First();
+            Cultures = new ObservableCollection<CultureInfo>(localizationManager.AvailableCultures);
+            SelectedCulture = localizationManager.CurrentCulture;
 
             this.WhenAnyValue(x => x.SelectedCulture)
                 .SubscribeAsync(culture => this.localizationManager.InitializeAsync(culture))
@@ -37,13 +33,13 @@ namespace Samples.Localization
 
         private void LocalizationStatusChanged(LocalizationState state)
         {
-            if(state > LocalizationState.Initializing)
+            if (state > LocalizationState.Initializing)
                 this.RaisePropertyChanged("Item");
         }
 
         public string this[string key] => this.localizationManager.GetText(key);
 
-        public IList<CultureInfo> Cultures { get; }
+        [Reactive] public ObservableCollection<CultureInfo> Cultures { get; set; }
 
         [Reactive] public CultureInfo SelectedCulture { get; set; }
     }

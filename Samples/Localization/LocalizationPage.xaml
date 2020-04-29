@@ -16,8 +16,10 @@
               <StackLayout Orientation="Horizontal">
                   <Label Text="{Binding [LocalizationPage_Hello]}" />
                   <Label Text="{Binding [LocalizationPage_Wellcome]}" />
-              </StackLayout>
+                </StackLayout>
+              <Label Text="{Binding [LocalizationPage_Specific]}" />
             </StackLayout>
-      </Grid>
+          <Label VerticalOptions="End" HorizontalOptions="Center" Text="Unlocalized keys for selected language appear as [THE_KEY]" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LocalizationPage_Hello" xml:space="preserve">
-    <value>Hola</value>
+    <value>Olá</value>
   </data>
   <data name="LocalizationPage_PickerTitle" xml:space="preserve">
     <value>Idioma</value>
   </data>
   <data name="LocalizationPage_Title" xml:space="preserve">
-    <value>Traduccion</value>
+    <value>Tradução</value>
   </data>
   <data name="LocalizationPage_Wellcome" xml:space="preserve">
-    <value>Bienvenido</value>
+    <value>Bem vindo</value>
   </data>
 </root>

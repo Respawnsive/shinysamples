@@ -13,7 +13,9 @@ using Samples.ShinySetup;
 using Shiny.Infrastructure;
 using Acr.UserDialogs.Forms;
 using Samples.Localization;
+using Samples.Localization.Other;
 using Shiny.Localization;
+using Shiny.Localization.Resx;
 using Shiny.Notifications;
 
 #if STARTUP_ATTRIBUTES
@@ -111,13 +113,15 @@ namespace Samples.ShinySetup
 
             //services.UsePushNotifications<PushDelegate>();
             //services.UseFirebaseMessaging<PushDelegate>();
-            services.UsePushAzureNotificationHubs<PushDelegate>(
-                "Endpoint=sb://shinysamples.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=jI6ss5WOD//xPNuHFJmS7sWWzqndYQyz7wAVOMTZoLE=",
-                "shinysamples"
-            );
+            //services.UsePushAzureNotificationHubs<PushDelegate>(
+            //    "Endpoint=sb://shinysamples.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=jI6ss5WOD//xPNuHFJmS7sWWzqndYQyz7wAVOMTZoLE=",
+            //    "shinysamples"
+            //);
             
             services.UseLocalization<ResxTextProvider<TextResources>>(optionsBuilder =>
-                optionsBuilder.UseInitializationCulture(CultureInfo.CreateSpecificCulture("EN")));
+                optionsBuilder.UseMainTextProviderInvariantCulture(CultureInfo.CreateSpecificCulture("EN"))
+                    .AddTextProvider<ResxTextProvider<OtherTextResources>>(CultureInfo.CreateSpecificCulture("EN"))
+                    .UseInitializationCulture(CultureInfo.InvariantCulture));
         }
     }
 }
