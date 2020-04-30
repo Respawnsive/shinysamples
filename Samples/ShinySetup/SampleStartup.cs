@@ -119,9 +119,9 @@ namespace Samples.ShinySetup
             //);
             
             services.UseLocalization<ResxTextProvider<TextResources>>(optionsBuilder =>
-                optionsBuilder.UseMainTextProviderInvariantCulture(CultureInfo.CreateSpecificCulture("EN"))
-                    .AddTextProvider<ResxTextProvider<OtherTextResources>>(CultureInfo.CreateSpecificCulture("EN"))
-                    .UseInitializationCulture(CultureInfo.InvariantCulture));
+                optionsBuilder.WithAutoInitialization(true, true, true, CultureInfo.InvariantCulture)
+                    .WithDefaultInvariantCulture(CultureInfo.CreateSpecificCulture("EN"))
+                    .AddTextProvider<ResxTextProvider<OtherTextResources>>(CultureInfo.CreateSpecificCulture("EN")));
         }
     }
 }
