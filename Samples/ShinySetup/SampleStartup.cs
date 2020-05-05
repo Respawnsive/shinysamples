@@ -117,11 +117,12 @@ namespace Samples.ShinySetup
             //    "Endpoint=sb://shinysamples.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=jI6ss5WOD//xPNuHFJmS7sWWzqndYQyz7wAVOMTZoLE=",
             //    "shinysamples"
             //);
-            
+
+            var defaultCulture = CultureInfo.CreateSpecificCulture("EN");
             services.UseLocalization<ResxTextProvider<TextResources>>(optionsBuilder =>
-                optionsBuilder.WithAutoInitialization(true, true, true, CultureInfo.InvariantCulture)
-                    .WithDefaultInvariantCulture(CultureInfo.CreateSpecificCulture("EN"))
-                    .AddTextProvider<ResxTextProvider<OtherTextResources>>(CultureInfo.CreateSpecificCulture("EN")));
+                optionsBuilder.WithAutoInitialization(initializationCulture: defaultCulture)
+                    .WithDefaultInvariantCulture(defaultCulture)
+                    .AddTextProvider<ResxTextProvider<OtherTextResources>>());
         }
     }
 }
