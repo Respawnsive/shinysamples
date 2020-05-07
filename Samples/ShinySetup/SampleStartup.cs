@@ -12,6 +12,7 @@ using Samples.ShinyDelegates;
 using Samples.ShinySetup;
 using Shiny.Infrastructure;
 using Acr.UserDialogs.Forms;
+using DynamicData.Tests;
 using Samples.Localization;
 using Samples.Localization.Other;
 using Shiny.Localization;
@@ -42,6 +43,7 @@ using Shiny.Notifications;
 [assembly: ShinySpeechRecognition]
 [assembly: ShinyPush(typeof(PushDelegate))]
 [assembly: ShinyNfc]
+[assembly: ShinyLocalization(typeof(ResxTextProvider<TextResources>))]
 #endif
 #endif
 
