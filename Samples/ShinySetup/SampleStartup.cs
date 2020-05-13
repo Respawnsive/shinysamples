@@ -2,6 +2,7 @@
 //#define STARTUP_AUTO
 
 using System;
+using System.Net;
 using Shiny;
 using Shiny.Logging;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,8 @@ using Samples.ShinyDelegates;
 using Samples.ShinySetup;
 using Shiny.Infrastructure;
 using Acr.UserDialogs.Forms;
+using Refit;
+using Samples.WebApi;
 using Shiny.Notifications;
 
 #if STARTUP_ATTRIBUTES
@@ -108,10 +111,13 @@ namespace Samples.ShinySetup
 
             //services.UsePushNotifications<PushDelegate>();
             //services.UseFirebaseMessaging<PushDelegate>();
-            services.UsePushAzureNotificationHubs<PushDelegate>(
-                "Endpoint=sb://shinysamples.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=jI6ss5WOD//xPNuHFJmS7sWWzqndYQyz7wAVOMTZoLE=",
-                "shinysamples"
-            );
+            //services.UsePushAzureNotificationHubs<PushDelegate>(
+            //    "Endpoint=sb://shinysamples.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=jI6ss5WOD//xPNuHFJmS7sWWzqndYQyz7wAVOMTZoLE=",
+            //    "shinysamples"
+            //);
+
+            services.UseWebApi<IWebApiService>("https://reqres.in/",
+                options => options.WithDecompressionMethods(DecompressionMethods.Deflate | DecompressionMethods.GZip));
         }
     }
 }

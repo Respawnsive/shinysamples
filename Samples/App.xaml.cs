@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Samples.Infrastructure;
 using DryIoc;
+using Samples.WebApi;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
@@ -76,6 +77,7 @@ namespace Samples
             containerRegistry.RegisterForNavigation<AccessPage>("Access");
             containerRegistry.RegisterForNavigation<EnvironmentPage>("Environment");
             containerRegistry.RegisterForNavigation<Settings.MainPage>("Settings");
+            containerRegistry.RegisterForNavigation<WebApiPage>("WebApi");
         }
 
 
@@ -83,12 +85,14 @@ namespace Samples
         {
             var container = new Container(this.CreateContainerRules());
             ShinyHost.Populate((serviceType, func, lifetime) =>
-                container.RegisterDelegate(
-                    serviceType,
-                    _ => func(),
-                    Reuse.Singleton // HACK: I know everything is singleton
-                )
-            );
+            {
+                if(!serviceType.IsOpenGeneric())
+                    container.RegisterDelegate(
+                        serviceType,
+                        _ => func(),
+                        Reuse.Singleton // HACK: I know everything is singleton
+                    );
+            });
             return new DryIocContainerExtension(container);
         }
     }

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:webApi="clr-namespace:Samples.WebApi;assembly=Samples"
+             mc:Ignorable="d"
+             x:Class="Samples.WebApi.WebApiPage">
+    <ContentPage.Content>
+        <CollectionView ItemsSource="{Binding Users}"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+            <CollectionView.EmptyView>
+                <Label Text="No Records Found" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="webApi:User">
+                    <StackLayout>
+                        <Label Text="{Binding FirstName}" />
+                        <Label Text="{Binding LastName}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ContentPage.Content>
+</ContentPage>
