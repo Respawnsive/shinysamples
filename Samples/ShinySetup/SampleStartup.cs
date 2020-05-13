@@ -3,6 +3,7 @@
 
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using Shiny;
 using Shiny.Logging;
 using Microsoft.Extensions.DependencyInjection;
@@ -117,7 +118,9 @@ namespace Samples.ShinySetup
             //);
 
             services.UseWebApi<IWebApiService>("https://reqres.in/",
-                options => options.WithDecompressionMethods(DecompressionMethods.Deflate | DecompressionMethods.GZip));
+                options => options.WithDecompressionMethods(DecompressionMethods.Deflate | DecompressionMethods.GZip)
+                    .WithAuthorizationHeaderFactory(x => Task.FromResult("tokenValue"))
+                    .WithHttpTracerVerbosity(HttpTracer.HttpMessageParts.All));
         }
     }
 }
