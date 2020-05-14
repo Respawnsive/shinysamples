@@ -13,6 +13,7 @@ using Samples.ShinyDelegates;
 using Samples.ShinySetup;
 using Shiny.Infrastructure;
 using Acr.UserDialogs.Forms;
+using Polly;
 using Refit;
 using Samples.WebApi;
 using Shiny.Notifications;
@@ -118,7 +119,13 @@ namespace Samples.ShinySetup
             //);
 
             services.UseWebApi<IWebApiService>("https://reqres.in/",
-                options => options.WithDecompressionMethods(DecompressionMethods.Deflate | DecompressionMethods.GZip)
+                options => options.AddTransientHttpErrorPolicy(policy => policy.WaitAndRetryAsync(new[]
+                    {
+                        TimeSpan.FromSeconds(1),
+                        TimeSpan.FromSeconds(5),
+                        TimeSpan.FromSeconds(10)
+                    }))
+                    .WithDecompressionMethods(DecompressionMethods.Deflate | DecompressionMethods.GZip)
                     .WithAuthorizationHeaderFactory(x => Task.FromResult("tokenValue"))
                     .WithHttpTracerVerbosity(HttpTracer.HttpMessageParts.All));
         }
