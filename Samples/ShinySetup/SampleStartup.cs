@@ -3,6 +3,7 @@
 
 using System;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Shiny;
 using Shiny.Logging;
@@ -13,6 +14,7 @@ using Samples.ShinyDelegates;
 using Samples.ShinySetup;
 using Shiny.Infrastructure;
 using Acr.UserDialogs.Forms;
+using HttpTracer;
 using Polly;
 using Refit;
 using Samples.WebApi;
@@ -118,16 +120,18 @@ namespace Samples.ShinySetup
             //    "shinysamples"
             //);
 
-            services.UseWebApi<IWebApiService>("https://reqres.in/",
-                options => options.AddTransientHttpErrorPolicy(policy => policy.WaitAndRetryAsync(new[]
-                    {
-                        TimeSpan.FromSeconds(1),
-                        TimeSpan.FromSeconds(5),
-                        TimeSpan.FromSeconds(10)
-                    }))
-                    .WithDecompressionMethods(DecompressionMethods.Deflate | DecompressionMethods.GZip)
-                    .WithAuthorizationHeaderFactory(x => Task.FromResult("tokenValue"))
-                    .WithHttpTracerVerbosity(HttpTracer.HttpMessageParts.All));
+            services.AddRefitClient<IWebApiService>()
+                .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://reqres.in/"))
+                .ConfigurePrimaryHttpMessageHandler(() => new HttpTracerHandler(new HttpClientHandler
+                {
+                    AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
+                }, HttpMessageParts.All))
+                .AddTransientHttpErrorPolicy(policy => policy.WaitAndRetryAsync(new[]
+                {
+                    TimeSpan.FromSeconds(1),
+                    TimeSpan.FromSeconds(5),
+                    TimeSpan.FromSeconds(10)
+                }));
         }
     }
 }
