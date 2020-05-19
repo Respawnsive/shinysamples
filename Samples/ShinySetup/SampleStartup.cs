@@ -120,18 +120,30 @@ namespace Samples.ShinySetup
             //    "shinysamples"
             //);
 
-            services.AddRefitClient<IWebApiService>()
-                .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://reqres.in/"))
-                .ConfigurePrimaryHttpMessageHandler(() => new HttpTracerHandler(new HttpClientHandler
-                {
-                    AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
-                }, HttpMessageParts.All))
-                .AddTransientHttpErrorPolicy(policy => policy.WaitAndRetryAsync(new[]
-                {
-                    TimeSpan.FromSeconds(1),
-                    TimeSpan.FromSeconds(5),
-                    TimeSpan.FromSeconds(10)
-                }));
+            //services.AddRefitClient<IWebApiService>()
+            //    .ConfigureHttpClient(x => x.BaseAddress = new Uri("https://reqres.in/"))
+            //    .ConfigurePrimaryHttpMessageHandler(() => new HttpTracerHandler(new HttpClientHandler
+            //    {
+            //        AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip
+            //    }, HttpMessageParts.All))
+            //    .AddTransientHttpErrorPolicy(policy => policy.WaitAndRetryAsync(new[]
+            //    {
+            //        TimeSpan.FromSeconds(1),
+            //        TimeSpan.FromSeconds(5),
+            //        TimeSpan.FromSeconds(10)
+            //    }));
+
+            services.UseWebApi<IWebApiService>("https://reqres.in/", options => 
+                options.WithDecompressionMethods(DecompressionMethods.Deflate | DecompressionMethods.GZip)
+                    .WithHttpTracerVerbosity(HttpMessageParts.All)
+                    .ConfigureHttpClientBuilder(client => 
+                        client.AddTransientHttpErrorPolicy(policy => 
+                            policy.WaitAndRetryAsync(new[]
+                            {
+                                TimeSpan.FromSeconds(1),
+                                TimeSpan.FromSeconds(5),
+                                TimeSpan.FromSeconds(10)
+                            }))));
         }
     }
 }
