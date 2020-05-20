@@ -49,6 +49,7 @@
                         <TextCell Text="Environment" Command="{Binding Navigate}" CommandParameter="Nav/Environment" />
                         <TextCell Text="Settings" Command="{Binding Navigate}" CommandParameter="Nav/Settings" />
                         <TextCell Text="Localization" Command="{Binding Navigate}" CommandParameter="Nav/Localization" />
+                        <TextCell Text="WebApi" Command="{Binding Navigate}" CommandParameter="Nav/WebApi" />
                     </TableSection>
                 </TableRoot>
             </TableView>
