@@ -5,7 +5,7 @@ using Shiny.WebApi.Caching;
 
 namespace Samples.WebApi
 {
-    [WebApi("https://reqres.in/"), Cache]
+    [WebApi("https://reqres.in/"), Cache, Trace]
     public interface IWebApiService
     {
         [Get("/api/users")]
