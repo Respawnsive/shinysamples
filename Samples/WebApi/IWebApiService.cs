@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Refit;
+using Shiny.WebApi;
 using Shiny.WebApi.Caching;
 
 namespace Samples.WebApi
 {
+    [WebApi("https://reqres.in/"), Cache]
     public interface IWebApiService
     {
         [Get("/api/users")]
-        [Cache]
         Task<UserList> GetUsersAsync();
     }
 }
