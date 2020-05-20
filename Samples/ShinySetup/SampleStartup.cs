@@ -16,6 +16,8 @@ using Shiny.Infrastructure;
 using Acr.UserDialogs.Forms;
 using HttpTracer;
 using Polly;
+using Polly.Extensions.Http;
+using Polly.Registry;
 using Refit;
 using Samples.WebApi;
 using Shiny.Notifications;
@@ -119,6 +121,19 @@ namespace Samples.ShinySetup
             //    "Endpoint=sb://shinysamples.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=jI6ss5WOD//xPNuHFJmS7sWWzqndYQyz7wAVOMTZoLE=",
             //    "shinysamples"
             //);
+
+            var registry = new PolicyRegistry
+            {
+                {
+                    "TransientHttpError", HttpPolicyExtensions.HandleTransientHttpError().WaitAndRetryAsync(new[]
+                    {
+                        TimeSpan.FromSeconds(1),
+                        TimeSpan.FromSeconds(5),
+                        TimeSpan.FromSeconds(10)
+                    })
+                }
+            };
+            services.AddPolicyRegistry(registry);
 
             services.UseWebApi<IWebApiService>();
 
