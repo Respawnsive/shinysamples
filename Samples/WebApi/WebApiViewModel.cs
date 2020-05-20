@@ -5,15 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ReactiveUI.Fody.Helpers;
 using Shiny;
+using Shiny.WebApi;
 using Xamarin.Forms;
 
 namespace Samples.WebApi
 {
     public class WebApiViewModel : ViewModel
     {
-        readonly IWebApiService webApiService;
+        readonly IWebApi<IWebApiService> webApiService;
 
-        public WebApiViewModel(IWebApiService webApiService)
+        public WebApiViewModel(IWebApi<IWebApiService> webApiService)
         {
             this.webApiService = webApiService;
         }
@@ -22,7 +23,7 @@ namespace Samples.WebApi
 
         private async Task GetUsersAsync()
         {
-            var userList = await this.webApiService.GetUsersAsync(0);
+            var userList = await this.webApiService.ExecuteAsync(x => x.GetUsersAsync());
             if(!userList.Data.IsEmpty())
                 Users = new ObservableCollection<User>(userList.Data);
         }

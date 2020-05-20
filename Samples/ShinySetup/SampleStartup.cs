@@ -133,6 +133,7 @@ namespace Samples.ShinySetup
             //        TimeSpan.FromSeconds(10)
             //    }));
 
+            services.UseMemoryCache();
             services.UseWebApi<IWebApiService>("https://reqres.in/", options => 
                 options.WithDecompressionMethods(DecompressionMethods.Deflate | DecompressionMethods.GZip)
                     .WithHttpTracerVerbosity(HttpMessageParts.All)
