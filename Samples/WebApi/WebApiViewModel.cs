@@ -23,9 +23,16 @@ namespace Samples.WebApi
 
         private async Task GetUsersAsync()
         {
-            var userList = await this.webApiService.ExecuteAsync(x => x.GetUsersAsync());
-            if(!userList.Data.IsEmpty())
-                Users = new ObservableCollection<User>(userList.Data);
+            try
+            {
+                var userList = await this.webApiService.ExecuteAsync(x => x.GetUsersAsync());
+                if (!userList.Data.IsEmpty())
+                    Users = new ObservableCollection<User>(userList.Data);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         public override void OnAppearing()

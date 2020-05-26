@@ -136,18 +136,6 @@ namespace Samples.ShinySetup
             services.AddPolicyRegistry(registry);
 
             services.UseWebApi<IWebApiService>();
-
-            //services.UseWebApi<IWebApiService>("https://reqres.in/", options => 
-            //    options.WithDecompressionMethods(DecompressionMethods.Deflate | DecompressionMethods.GZip)
-            //        .WithHttpTracerVerbosity(HttpMessageParts.All)
-            //        .ConfigureHttpClientBuilder(client => 
-            //            client.AddTransientHttpErrorPolicy(policy => 
-            //                policy.WaitAndRetryAsync(new[]
-            //                {
-            //                    TimeSpan.FromSeconds(1),
-            //                    TimeSpan.FromSeconds(5),
-            //                    TimeSpan.FromSeconds(10)
-            //                }))));
         }
     }
 }
