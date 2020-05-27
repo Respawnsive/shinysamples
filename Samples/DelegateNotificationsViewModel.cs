@@ -60,6 +60,7 @@ namespace Samples
         [Reactive] public bool UseNotificationsJobStart { get; set; }
         [Reactive] public bool UseNotificationsJobFinish { get; set; }
 
+        [Reactive] public string Token { get; set; }
         [Reactive] public bool IsChecked { get; set; }
         [Reactive] public string YourText { get; set; }
         [Reactive] public DateTime? LastUpdated { get; set; }

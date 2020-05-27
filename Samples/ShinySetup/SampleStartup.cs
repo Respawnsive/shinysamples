@@ -2,25 +2,22 @@
 //#define STARTUP_AUTO
 
 using System;
-using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using Shiny;
 using Shiny.Logging;
 using Microsoft.Extensions.DependencyInjection;
-using Samples;
 using Samples.Settings;
 using Samples.ShinyDelegates;
-using Samples.ShinySetup;
-using Shiny.Infrastructure;
 using Acr.UserDialogs.Forms;
-using HttpTracer;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Registry;
-using Refit;
 using Samples.WebApi;
 using Shiny.Notifications;
+using Shiny.WebApi.Authenticating;
 
 #if STARTUP_ATTRIBUTES
 //[assembly: ShinySqliteIntegration(true, true, true, true, true)]
@@ -135,7 +132,13 @@ namespace Samples.ShinySetup
             };
             services.AddPolicyRegistry(registry);
 
-            services.UseWebApi<IWebApiService>();
+            services.UseWebApi<IReqResService>();
+            services.UseWebApi<IHttpBinService>(apiOptions => apiOptions.WithAuthenticationHandler<IAppSettings>(settings => settings.Token, OnRefreshToken));
+        }
+
+        private static Task<string?> OnRefreshToken(HttpRequestMessage request)
+        {
+            return Task.FromResult("tokenValue");
         }
     }
 }

@@ -9,7 +9,7 @@ using Shiny.WebApi.Tracing;
 namespace Samples.WebApi
 {
     [WebApi("https://reqres.in/"), Cache, Trace]
-    public interface IWebApiService
+    public interface IReqResService
     {
         [Get("/api/users")]
         Task<UserList> GetUsersAsync();

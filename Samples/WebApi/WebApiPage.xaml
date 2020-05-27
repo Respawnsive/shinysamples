@@ -7,21 +7,25 @@
              mc:Ignorable="d"
              x:Class="Samples.WebApi.WebApiPage">
     <ContentPage.Content>
-        <CollectionView ItemsSource="{Binding Users}"
-                        VerticalOptions="FillAndExpand"
-                        HorizontalOptions="FillAndExpand">
-            <CollectionView.EmptyView>
-                <Label Text="No Records Found" />
-            </CollectionView.EmptyView>
+        <Grid>
+            <CollectionView ItemsSource="{Binding Users}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <CollectionView.EmptyView>
+                    <Label Text="No Records Found" />
+                </CollectionView.EmptyView>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="webApi:User">
-                    <StackLayout>
-                        <Label Text="{Binding FirstName}" />
-                        <Label Text="{Binding LastName}" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="webApi:User">
+                        <StackLayout>
+                            <Label Text="{Binding FirstName}" />
+                            <Label Text="{Binding LastName}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button VerticalOptions="End" HorizontalOptions="FillAndExpand" Text="Auth" Command="{Binding AuthCommand}"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
